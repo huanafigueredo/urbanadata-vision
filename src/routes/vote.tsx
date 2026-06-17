@@ -5,7 +5,7 @@ import {
   ShoppingBag, IceCream, Send, Sparkles, CheckCircle2, Share2, Gift, X, Mail,
 } from "lucide-react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/vote")({
   head: () => ({
     meta: [
       { title: "Vote no seu bairro — UrbanaData" },

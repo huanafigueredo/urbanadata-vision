@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { MapPin, LayoutDashboard } from "lucide-react";
+import { MapPin, LayoutDashboard, Home } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className="dark">
+    <html lang="pt-BR">
       <head><HeadContent /></head>
       <body>
         {children}
@@ -90,15 +90,20 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function TopNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isDashboard = pathname.startsWith("/dashboard");
+
+  const tabs = [
+    { to: "/", label: "Início", icon: Home, match: (p: string) => p === "/" },
+    { to: "/vote", label: "Eleitor", icon: MapPin, match: (p: string) => p.startsWith("/vote") },
+    { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, match: (p: string) => p.startsWith("/dashboard") },
+  ] as const;
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4">
-      <div className="mx-auto max-w-7xl glass-strong rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl glass-strong rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2.5 min-w-0">
           <div className="relative h-8 w-8 shrink-0 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center">
             <MapPin className="h-4 w-4 text-primary-foreground" />
-            <div className="absolute inset-0 rounded-xl bg-primary/40 blur-md -z-10 animate-pulse-glow" />
+            <div className="absolute inset-0 rounded-xl bg-primary/30 blur-md -z-10 animate-pulse-glow" />
           </div>
           <div className="min-w-0">
             <div className="font-bold tracking-tight truncate">UrbanaData</div>
@@ -107,15 +112,30 @@ function TopNav() {
         </Link>
 
         <nav className="glass rounded-full p-1 flex items-center text-sm">
-          <Link to="/" className={`px-3 sm:px-4 py-1.5 rounded-full transition flex items-center gap-1.5 ${!isDashboard ? "bg-white/10 text-white" : "text-muted-foreground hover:text-white"}`}>
-            <MapPin className="h-3.5 w-3.5" />
-            <span className="hidden xs:inline sm:inline">Eleitor</span>
-          </Link>
-          <Link to="/dashboard" className={`px-3 sm:px-4 py-1.5 rounded-full transition flex items-center gap-1.5 ${isDashboard ? "bg-white/10 text-white" : "text-muted-foreground hover:text-white"}`}>
-            <LayoutDashboard className="h-3.5 w-3.5" />
-            <span className="hidden xs:inline sm:inline">Dashboard</span>
-          </Link>
+          {tabs.map((t) => {
+            const Icon = t.icon;
+            const active = t.match(pathname);
+            return (
+              <Link
+                key={t.to}
+                to={t.to}
+                className={`px-3 sm:px-4 py-1.5 rounded-full transition flex items-center gap-1.5 ${
+                  active ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Icon className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">{t.label}</span>
+              </Link>
+            );
+          })}
         </nav>
+
+        <Link
+          to="/dashboard"
+          className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-foreground text-background px-4 py-1.5 text-sm font-medium hover:opacity-90 transition"
+        >
+          Solicitar demo
+        </Link>
       </div>
     </header>
   );
