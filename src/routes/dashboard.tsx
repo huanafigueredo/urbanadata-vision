@@ -174,7 +174,7 @@ function DashboardView() {
               </div>
               <div className="mt-5 space-y-3 max-h-[320px] overflow-y-auto pr-1">
                 {feedback.map((f, i) => (
-                  <div key={i} className="rounded-xl bg-white/[0.03] border border-white/5 p-3">
+                  <div key={i} className="rounded-xl bg-foreground/[0.03] border border-foreground/5 p-3">
                     <p className="text-sm leading-snug">"{f.msg}"</p>
                     <div className="flex items-center justify-between mt-2 text-[11px]">
                       <span className="text-primary font-medium">{f.tag}</span>
@@ -196,22 +196,22 @@ function DashboardView() {
                 </div>
                 <MapPin className="h-4 w-4 text-primary" />
               </div>
-              <div className="mt-4 relative h-72 rounded-xl overflow-hidden border border-white/5 bg-[#0a0e1a]">
+              <div className="mt-4 relative h-72 rounded-xl overflow-hidden border border-foreground/5 bg-gradient-to-br from-secondary to-white">
                 {/* Grid */}
                 <div
-                  className="absolute inset-0 opacity-30"
+                  className="absolute inset-0 opacity-60"
                   style={{
                     backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
+                      "linear-gradient(rgba(15,23,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.05) 1px, transparent 1px)",
                     backgroundSize: "32px 32px",
                   }}
                 />
                 {/* Vector "streets" */}
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="none">
-                  <path d="M0,140 Q200,80 400,160" stroke="rgba(255,255,255,0.12)" strokeWidth="2" fill="none" />
-                  <path d="M80,0 L120,300" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
-                  <path d="M260,0 L300,300" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none" />
-                  <path d="M0,220 L400,210" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none" />
+                  <path d="M0,140 Q200,80 400,160" stroke="rgba(15,23,42,0.18)" strokeWidth="2" fill="none" />
+                  <path d="M80,0 L120,300" stroke="rgba(15,23,42,0.15)" strokeWidth="2" fill="none" />
+                  <path d="M260,0 L300,300" stroke="rgba(15,23,42,0.15)" strokeWidth="2" fill="none" />
+                  <path d="M0,220 L400,210" stroke="rgba(15,23,42,0.1)" strokeWidth="1" fill="none" />
                 </svg>
                 {/* Heat blobs */}
                 <div className="absolute left-[40%] top-[35%] h-40 w-40 rounded-full bg-primary/40 blur-3xl animate-pulse-glow" />
