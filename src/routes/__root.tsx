@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { MapPin, LayoutDashboard, Home } from "lucide-react";
+import { MapPin, LayoutDashboard, Home, Building2 } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -94,6 +94,7 @@ function TopNav() {
   const tabs = [
     { to: "/", label: "Início", icon: Home, match: (p: string) => p === "/" },
     { to: "/vote", label: "Eleitor", icon: MapPin, match: (p: string) => p.startsWith("/vote") },
+    { to: "/properties", label: "Imóveis", icon: Building2, match: (p: string) => p.startsWith("/properties") },
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, match: (p: string) => p.startsWith("/dashboard") },
   ] as const;
 
